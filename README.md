@@ -2,9 +2,9 @@
 
 Collection of the [integrativebioinformatics/pulposeq](https://github.com/integrativebioinformatics/pulposeq.git) workflow integration and benchmarking for isoform-level analysis of bulk long-read RNA-seq public datasets.
 
-## LongBench datasets
+## Benchmarking datasets
 
-In order to evaluate the pipeline's efficiency across different long-read platforms and protocols, we implemented the [LongBench](https://github.com/mritchielab/LongBench.io) ONT_cDNA, ONT_DRS and PacBio bulk RNA-seq datasets of Small Cell and Non-Small Cell Lung Cancer cell lines.
+In order to evaluate the pipeline's efficiency across different long-read platforms and protocols, we are currently analysing the [LongBench](https://github.com/mritchielab/LongBench.io) ONT_cDNA, ONT_DRS and PacBio bulk RNA-seq datasets of Small Cell and Non-Small Cell Lung Cancer cell lines.
 
 Sequencing data are available from Gene Expression Omnibus under accession number GSE303762 and [AWS S3](https://registry.opendata.aws/longbench/).
 
