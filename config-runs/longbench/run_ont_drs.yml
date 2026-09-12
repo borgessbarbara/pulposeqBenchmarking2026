@@ -2,16 +2,10 @@
 input: "/home/mbbdsantana/scratch/paper/ont_drs/samplesheet_ont_drs.csv"
 outdir: "/home/mbbdsantana/scratch/paper/ont_drs/results"
 
-skip_chopper: true       # filtering and trimming; every NanoComp report still runs
-skip_minimap2: false      # alignment, and with it bambu, classification and the report
-skip_bambu: false         # transcriptome assembly, and with it classification and the report
-skip_class: false         # coding-potential prediction and novel transcript classification
-
-# NanoComp reports to skip, comma-separated: raw, restrander, chopper, minimap2, or
-# all. Leave unset (null) to run every report. This selects reports only -- chopper
-# still filters and Restrander still orients with their reports turned off.
-# Examples: 'minimap2'  |  'raw,chopper'  |  'rest,chopper'  |  'all'
-skip_nanocomp: 'all'
+skip_chopper: true
+skip_minimap2: false
+skip_bambu: false
+skip_class: false
 
 reference: "/home/mbbdsantana/scratch/paper/references/GRCh38.primary_assembly.genome.fa"
 annotation: "/home/mbbdsantana/scratch/paper/references/gencode.v50.primary_assembly.annotation.gtf" 
