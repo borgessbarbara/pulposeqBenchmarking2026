@@ -1,0 +1,25 @@
+input: "/home/mbbdsantana/scratch/paper/ont/samplesheet_ont.csv"
+outdir: "/home/mbbdsantana/scratch/paper/ont/results"
+
+skip_chopper: true
+skip_minimap2: false
+skip_bambu: false
+skip_class: false
+
+reference: "/home/mbbdsantana/scratch/paper/references/GRCh38.primary_assembly.genome.fa"
+annotation: "/home/mbbdsantana/scratch/paper/references/gencode.v50.primary_assembly.annotation.gtf" 
+
+coding_potential_pred: "cpc2" 
+
+library: "ONT_cDNA"
+
+stranded_library: false
+
+map_hq: true
+
+restrand_min_frac: 0.7
+
+restrand_kit: "PCB114"
+
+ndr: 0.1
+
