@@ -1,0 +1,9 @@
+sample,group,fastq
+HCC827_ONT,LUAD,/home/mbbdsantana/scratch/paper/samples/HCC827_ONT.fastq.gz
+H2228_ONT,LUAD,/home/mbbdsantana/scratch/paper/samples/H2228_ONT.fastq.gz
+H1975_ONT,LUAD,/home/mbbdsantana/scratch/paper/samples/H1975_ONT.fastq.gz
+H526_ONT,SCLC-P,/home/mbbdsantana/scratch/paper/samples/H526_ONT.fastq.gz
+H211_ONT,SCLC-P,/home/mbbdsantana/scratch/paper/samples/H211_ONT.fastq.gz
+H69_ONT,SCLC-A,/home/mbbdsantana/scratch/paper/samples/H69_ONT.fastq.gz
+SHP77_ONT,SCLC-A,/home/mbbdsantana/scratch/paper/samples/SHP77_ONT.fastq.gz
+H146_ONT,SCLC-A,/home/mbbdsantana/scratch/paper/samples/H146_ONT.fastq.gz

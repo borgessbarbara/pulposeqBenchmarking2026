@@ -1,0 +1,9 @@
+sample,group,fastq
+HCC827_PacBio,LUAD,/home/mbbdsantana/scratch/paper/samples/HCC827_PB.fastq.gz
+H2228_PacBio,LUAD,/home/mbbdsantana/scratch/paper/samples/H2228_PB.fastq.gz
+H1975_PacBio,LUAD,/home/mbbdsantana/scratch/paper/samples/H1975_PB.fastq.gz
+H526_PacBio,SCLC-P,/home/mbbdsantana/scratch/paper/samples/H526_PB.fastq.gz
+H211_PacBio,SCLC-P,/home/mbbdsantana/scratch/paper/samples/H211_PB.fastq.gz
+H69_PacBio,SCLC-A,/home/mbbdsantana/scratch/paper/samples/H69_PB.fastq.gz
+SHP77_PacBio,SCLC-A,/home/mbbdsantana/scratch/paper/samples/SHP77_PB.fastq.gz
+H146_PacBio,SCLC-A,/home/mbbdsantana/scratch/paper/samples/H146_PB.fastq.gz
