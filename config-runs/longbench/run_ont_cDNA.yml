@@ -1,5 +1,5 @@
-input: "/home/mbbdsantana/scratch/paper/ont/samplesheet_ont.csv"
-outdir: "/home/mbbdsantana/scratch/paper/ont/results"
+input: "/home/mbbdsantana/scratch/paper/ont_cdna/samplesheet_ont_cdna.csv"
+outdir: "/home/mbbdsantana/scratch/paper/ont_cdna/results"
 
 skip_chopper: true
 skip_minimap2: false
