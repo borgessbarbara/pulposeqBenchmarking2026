@@ -1,0 +1,9 @@
+sample,group,fastq
+alz_90_bop,alzheimer,/home/mbbdsantana/scratch/paper/rush/samples/alz_90_bop.fastq.gz
+alz_90_kvj,alzheimer,/home/mbbdsantana/scratch/paper/rush/samples/alz_90_kvj.fastq.gz
+alz_90_efu,alzheimer,/home/mbbdsantana/scratch/paper/rush/samples/alz_90_efu.fastq.gz
+alz_90_ttd,alzheimer,/home/mbbdsantana/scratch/paper/rush/samples/alz_90_ttd.fastq.gz
+nci_90_duw,control,/home/mbbdsantana/scratch/paper/rush/samples/nci_90_duw.fastq.gz
+nci_90_awp,control,/home/mbbdsantana/scratch/paper/rush/samples/nci_90_awp.fastq.gz
+nci_88_tqz,control,/home/mbbdsantana/scratch/paper/rush/samples/nci_88_tqz.fastq.gz
+nci_79_dfb,control,/home/mbbdsantana/scratch/paper/rush/samples/nci_79_dfb.fastq.gz
