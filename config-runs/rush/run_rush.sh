@@ -1,0 +1,20 @@
+input: "/home/mbbdsantana/scratch/paper/rush/samplesheet.csv"
+outdir: "/home/mbbdsantana/scratch/paper/rush/results"
+
+skip_chopper: true
+skip_minimap2: false
+skip_bambu: false
+skip_class: false
+
+reference: "/home/mbbdsantana/scratch/paper/references/GRCh38.primary_assembly.genome.rush.fa"
+annotation: "/home/mbbdsantana/scratch/paper/references/gencode.v50.primary_assembly.annotation.rush.gtf" 
+
+coding_potential_pred: "cpc2" 
+
+library: "PacBio"
+
+stranded_library: true
+
+map_hq: true
+
+ndr: 0.1
