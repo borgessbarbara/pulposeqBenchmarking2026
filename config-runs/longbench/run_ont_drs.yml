@@ -7,8 +7,8 @@ skip_minimap2: false
 skip_bambu: false
 skip_class: false
 
-reference: "/home/mbbdsantana/scratch/paper/references/GRCh38.primary_assembly.genome.fa"
-annotation: "/home/mbbdsantana/scratch/paper/references/gencode.v50.primary_assembly.annotation.gtf" 
+reference: "/home/mbbdsantana/scratch/paper/references/GRCh38.primary_assembly.genome.v50.longbench.spikeins.fa"
+annotation: "/home/mbbdsantana/scratch/paper/references/gencode.v50.primary_assembly.annotation.longbench.spikeins.gtf" 
 
 coding_potential_pred: "cpc2" 
 
