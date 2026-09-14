@@ -21,15 +21,6 @@ ENCFF708BOPO, ENCFF785KVJ, ENCFF446EFU and ENCFF156TTD
 
 The ENCODE Project Consortium. An integrated encyclopedia of DNA elements in the human genome. Nature 489, 57–74 (2012). https://doi.org/10.1038/nature11247
 
-### Lung Adenocarcinoma cell lines H1975 and HCC827 (PromethION ONT cDNA)
-
-BioProject:  PRNA723287
-
-- H1975 replicates: SRR14286054, SRR14286055 and SRR14286056.
-- HCC827 replicates: SRR14286063, SRR14286064 and SRR14286065.
-
-Dong, X., Du, M.R.M., Gouil, Q. et al. Benchmarking long-read RNA-sequencing analysis tools using in silico mixtures. Nat Methods 20, 1810–1821 (2023). https://doi.org/10.1038/s41592-023-02026-3
-
 ### LongBench
 From the [LongBench](https://github.com/mritchielab/LongBench.io) sequencing of LUAD, SCLC-A and SCLC-P cell lines, we evaluated pipeline runs across the bulk PacBio, ONT cDNA, ONT direct RNA-seq datasets.
 
