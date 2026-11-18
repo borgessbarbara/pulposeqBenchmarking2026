@@ -47,15 +47,16 @@ prot_lab <- function(x) {            # UIC scripts: ONTd / ONTc / PB -> ONT DRS 
   x <- gsub("\\bPB\\b", "PacBio", x, perl = TRUE)
   gsub("+", " + ", x, fixed = TRUE)
 }
-uic_tab <- function(d) {             # a table of the UIC scripts: "UIC" (not "UJC") and protocol names
-  names(d) <- prot_lab(sub("^UJC ", "UIC ", names(d)))
+uic_tab <- function(d) {             # a table of the UIC scripts: "UIC" (not "UJC"), protocol names,
+  names(d) <- prot_lab(sub("^UJC ", "UIC ", names(d)))   # and "transcripts", not "transcript models"
+  names(d) <- sub("transcript models", "transcripts", names(d), fixed = TRUE)
   mutate(d, across(any_of(c("Protocol", "Protocols", "Category", "Group", "Sharing category")), prot_lab))
 }
 rs_lab <- function(d) {              # read support: biotypes and support classes as in Fig. 1g and 2a
   bt <- c("predicted protein-coding" = "novel protein-coding", "novel lncRNA candidate" = "novel lncRNA",
           "predicted non-coding" = "novel non-coding", "other biotypes" = "annotated other")
   sp <- c("full-length + unique" = "full-length + unique reads", "unique only" = "unique reads",
-          "full-length only" = "full-length reads", "neither" = "partial & ambiguous reads")
+          "full-length only" = "full-length reads", "neither" = "neither")
   mutate(d, across(any_of("biotype"), ~ ifelse(.x %in% names(bt), unname(bt[.x]), .x)),
             across(any_of("support"), ~ ifelse(.x %in% names(sp), unname(sp[.x]), .x)))
 }
@@ -203,7 +204,7 @@ if (!all(c("recall_de", "precision_de", "f1_de", "r2_de") %in% names(st4b)))
   message("  ! ST4: Dong differential abundance columns not found to relabel")
 add("ST4", "Spike-in identification per protocol: detected against expected isoforms, false positives, precision, recall and F1 (LongBench and Dong).",
     paste("Unit: spike-in set x protocol. Detected = >=3 estimated reads (oarfish, rounded per library) in >=2 libraries (ERCCs: >=1 read in >=2 libraries).",
-          "False positives = novel models assembled on spike-in sequences, in Bambu's output and after pulposeq validation.",
+          "False positives = novel transcripts assembled on spike-in sequences, in Bambu's output and after pulposeq validation.",
           "Fig. 1b and the text report the two SIRV sets separately (F1 = 0.95-1.00); the combined row SIRV (E0 + long, 84 isoforms) is given for completeness.",
           "Sequins: the 164 isoforms of the Anaquin mixture table (R2_18 and R2_66 included; Supplementary Note 1).",
           "Recall = detected / expected (the sensitivity of identification).",
@@ -318,9 +319,9 @@ add("ST8", "Bambu and oarfish quantification of the same runs (LongBench and Don
 
 ## ---- ST9: read support ---------------------------------------------------------
 add("ST9", "Read-level support of the validated transcriptome (LongBench and Dong).",
-    paste("Unit: transcripts of the validated assembly with Bambu read classes (transcripts kept on oarfish counts alone have none).",
+    paste("Unit: every transcript of the validated assembly; read classes are Bambu's (oarfish has none).",
           "Full-length = >=1 full-length read in any sample; unique = >=1 uniquely assigned read in any sample (not necessarily the same read). Reference transcripts by reference biotype, novel ones by pulposeq biotype.",
-          "Support classes as in Fig. 1g and 2a: full-length + unique reads; unique reads (no full-length read); full-length reads (no uniquely assigned read); partial & ambiguous reads (neither).",
+          "Support classes as in Fig. 1g and 2a: full-length + unique reads; unique reads (no full-length read); full-length reads (no uniquely assigned read); neither (no full-length and no uniquely assigned read: only partial, shared Bambu reads, or no Bambu reads for transcripts kept on oarfish counts alone).",
           "(c) Dong, by GffCompare class code of the novel isoforms (reference = annotated isoforms), per biotype."),
     `a | LongBench` = rs_lab(rd(lb, "read-support/results/read_support_all_runs_long.csv")),
     `b | Dong` = rs_lab(rd(dg, "read-support/results/read_support_all_runs_long.csv")),
@@ -334,7 +335,7 @@ st10 <- bind_rows(with_dataset(rd(lb, "figure-panels/results/figure_tables/supp_
                   with_dataset(rd(dg, "figure-panels/results/figure_tables/supp_novel_biotype_classcode_dong.csv"), "Dong")) %>%
   mutate(across(any_of(c("Protocol", "protocol")), ~ sub("^(LongBench|Dong) ", "", .x)))
 add("ST10", "Novel transcripts by pulposeq biotype and GffCompare class code (LongBench and Dong).",
-    paste("Unit: validated novel transcript models. Class codes grouped as junction match (j), contains reference (k), retained intron (m, n), sense overlap (sense intronic i, o, y),",
+    paste("Unit: validated novel transcripts. Class codes grouped as junction match (j), contains reference (k), retained intron (m, n), sense overlap (sense intronic i, o, y),",
           "antisense (antisense intronic i, x) and intergenic (u). Percentages of all novel transcripts of the run and within each biotype."),
     `Novel transcripts` = st10)
 
@@ -347,11 +348,11 @@ uic_len <- rd(lb, "unique_intron_chains/results/length/corroboration_by_length.c
   transmute(`Source protocol` = from, `Also found by` = found_in, `Spliced length in the source protocol` = bin,
             `Multi-exon novel transcripts` = n, `% with UIC also found` = pct_found)
 add("ST11", "Sharing of novel intron chains between protocols and transcript-end differences within shared chains (LongBench).",
-    paste("(a) Novel models per protocol and (b) their composition, before cross-protocol matching. (c) Unit: unique intron chain (UIC) entities, one row per distinct chain;",
-          "mono-exon models have no UIC and are never matched; transcript ends are not part of the match. (d) Unit: protocol pairs (an entity of three protocols contributes three pairs);",
+    paste("(a) Novel transcripts per protocol and (b) their composition, before cross-protocol matching. (c) Unit: unique intron chain (UIC) entities, one row per distinct chain;",
+          "mono-exonic transcripts have no UIC and are never matched; transcript ends are not part of the match. (d) Unit: protocol pairs (an entity of three protocols contributes three pairs);",
           "|d5| and |d3| = distances between the two protocols' 5' and 3' ends.",
           "(e) Unit: multi-exon novel transcripts of the source protocol; percentage whose UIC was also found by each other protocol, by spliced length in the source protocol (bins of fewer than ten transcripts omitted; Fig. 1j)."),
-    `a | Novel models per protocol` = uic_tab(rt(uj, "ST2_discovery_per_protocol.tsv")),
+    `a | Novel transcripts per protocol` = uic_tab(rt(uj, "ST2_discovery_per_protocol.tsv")),
     `b | Composition` = uic_tab(rt(uj, "ST3_composition_of_novel_calls.tsv")),
     `c | UIC sharing` = uic_tab(rt(uj, "ST4_ujc_sharing.tsv")),
     `d | Transcript-end differences` = uic_tab(rt(uj, "ST6_transcript_end_differences.tsv")),
