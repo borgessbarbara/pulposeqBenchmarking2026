@@ -1,0 +1,24 @@
+input: "/home/mbbdsantana/scratch/paper/pb/samplesheet_pb.csv"
+outdir: "/home/mbbdsantana/scratch/paper/pb/results_oarfish"
+
+skip_chopper: true   # filtering and trimming; every NanoComp report still runs
+skip_minimap2: false # alignment, and with it bambu, classification and the report
+skip_bambu: false    # transcriptome assembly, and with it classification and the report
+skip_class: false    # coding-potential prediction and novel transcript classification
+
+reference: "/home/mbbdsantana/scratch/paper/references/GRCh38.primary_assembly.genome.v50.longbench.spikeins.fa"
+annotation: "/home/mbbdsantana/scratch/paper/references/gencode.v50.primary_assembly.annotation.longbench.spikeins.gtf"
+
+library: "PacBio"
+
+stranded_library: true
+
+map_hq: true
+
+ndr: 0.1
+
+min_total_counts: 5
+
+run_oarfish: true
+
+oarfish_num_bootstraps: 20

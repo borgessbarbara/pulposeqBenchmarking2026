@@ -1,0 +1,11 @@
+# ONT cDNA
+nextflow run main.nf -profile large,singularity -params-file run_ont_cdna.yml
+
+# ONT DRS
+nextflow run main.nf -profile large,singularity -params-file run_ont_drs.yml
+
+# PacBio
+nextflow run main.nf -profile large,singularity -params-file run_pacbio.yml
+
+# Dong
+nextflow run main.nf -profile large,singularity -params-file run_dong.yml

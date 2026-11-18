@@ -1,0 +1,7 @@
+sample,group,cell_line
+H1975_1,TKI-resistant,H1975
+H1975_2,TKI-resistant,H1975
+H1975_3,TKI-resistant,H1975
+HCC827_1,TKI-sensitive,HCC827
+HCC827_2,TKI-sensitive,HCC827
+HCC827_3,TKI-sensitive,HCC827

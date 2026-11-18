@@ -1,0 +1,22 @@
+input: "/home/mbbdsantana/scratch/paper/ont_drs/samplesheet_ont_drs.csv"
+outdir: "/home/mbbdsantana/scratch/paper/ont_drs/results_oarfish"
+
+skip_chopper: true   # filtering and trimming; every NanoComp report still runs
+skip_minimap2: false # alignment, and with it bambu, classification and the report
+skip_bambu: false    # transcriptome assembly, and with it classification and the report
+skip_class: false    # coding-potential prediction and novel transcript classification
+
+reference: "/home/mbbdsantana/scratch/paper/references/GRCh38.primary_assembly.genome.v50.longbench.spikeins.fa"
+annotation: "/home/mbbdsantana/scratch/paper/references/gencode.v50.primary_assembly.annotation.longbench.spikeins.gtf"
+
+library: "ONT_DRS"
+
+stranded_library: true
+
+ndr: 0.1
+
+min_total_counts: 5
+
+run_oarfish: true
+
+oarfish_num_bootstraps: 20

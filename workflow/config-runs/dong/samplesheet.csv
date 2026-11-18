@@ -1,0 +1,7 @@
+sample,group,fastq
+H1975_1,H1975,/home/mbborges/dong/samples/H1975_1.fastq.gz
+H1975_2,H1975,/home/mbborges/dong/samples/H1975_2.fastq.gz
+H1975_3,H1975,/home/mbborges/dong/samples/H1975_3.fastq.gz
+HCC827_1,HCC827,/home/mbborges/dong/samples/HCC827_1.fastq.gz
+HCC827_2,HCC827,/home/mbborges/dong/samples/HCC827_2.fastq.gz
+HCC827_3,HCC827,/home/mbborges/dong/samples/HCC827_3.fastq.gz

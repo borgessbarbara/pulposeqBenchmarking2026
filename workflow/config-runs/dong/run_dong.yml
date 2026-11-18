@@ -1,0 +1,28 @@
+input: "/home/mbborges/dong/samplesheet.csv"
+outdir: "/home/mbbdsantana/mbborges/dong/results_oarfish"
+
+skip_chopper: true   # filtering and trimming; every NanoComp report still runs
+skip_minimap2: false # alignment, and with it bambu, classification and the report
+skip_bambu: false    # transcriptome assembly, and with it classification and the report
+skip_class: false    # coding-potential prediction and novel transcript classification
+
+reference: "/home/mbborges/dong/references/GRCh38.primary_assembly.genome.v50.dong.sequins.fa"
+annotation: "/home/mbborges/dong/references/gencode.v50.primary_assembly.annotation.dong.sequins.gtf"
+
+library: "ONT_cDNA"
+
+stranded_library: false
+
+map_hq: false
+
+restrand_min_frac: 0.76
+
+restrand_kit: "PCB109"
+
+ndr: 0.1
+
+min_total_counts: 5
+
+run_oarfish: true
+
+oarfish_num_bootstraps: 20
