@@ -297,7 +297,8 @@ q_spk <- rd(lq, "q_metrics_spikeins.csv") %>%
                          sub("^SIRV F1", "SIRV F1 (E0 + long)", metric), metric))
 if (!any(grepl("SIRV F1 (E0 + long)", q_spk$metric, fixed = TRUE))) message("  ! ST8: no SIRV F1 metric found to relabel")
 add("ST8", "Bambu and oarfish quantification of the same runs (LongBench and Dong).",
-    paste("Same alignments, annotation and libraries. Quantifier comparisons use undivided counts for both quantifiers, so only the quantifier differs (Bambu has no RTA division);",
+    paste("Same runs, libraries and transcripts (the reference and novel transcripts of each run's assembly), but not the same alignments: Bambu quantifies the minimap2 genome alignments, whereas oarfish maps the reads to the transcript sequences with its built-in mapper.",
+          "Quantifier comparisons use undivided counts for both quantifiers, so the RTA division is not part of the difference (Bambu has no RTA division);",
           "the count_mode column of (a) marks them, and the oarfish counts divided by RTA overdispersion (the primary analysis, Fig. 1e and the text) are added for sequin DE.",
           "(a, b) LongBench spike-in metrics by set and per spike-in. In (a), r2 is the dose-response R2 (log2 CPM on log2 input) in ERCC rows and the R2 of observed against expected log2FC in sequin DE rows.",
           "In (b), SIRV F1 (E0 + long) is the F1 of the two SIRV sets together (84 isoforms; the text and Fig. 1b report the sets separately), and ERCC reads per library and the limit of detection (LOD70, amol/ul) are on the linear scale (Extended Data Fig. 4b plots them as log10).",
