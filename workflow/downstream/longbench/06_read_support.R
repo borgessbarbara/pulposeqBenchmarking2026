@@ -13,7 +13,8 @@
 ##                (BambuOutput_uniqueCounts_transcript_validated.txt)
 ##                A transcript missing from a table has no such read.
 ##   Classes      full-length + unique | unique only | full-length only |
-##                neither (supported only by partial, multi-assigned reads)
+##                neither (only partial, multi-assigned Bambu reads, or no
+##                Bambu reads when kept on oarfish counts alone)
 ##   Biotypes     annotated: reference metadata, using the column that
 ##                reproduces the report's Bambu_lncRNA_PC_summary.csv counts
 ##                (protein-coding, lncRNA, other biotypes);
