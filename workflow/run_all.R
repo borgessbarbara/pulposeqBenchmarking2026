@@ -21,29 +21,7 @@ BASE <- "C:/Users/mbarb/OneDrive/paper-pulposeq/pulposeq-benchmarking-2026/workf
 
 RUN_FOLDERS <- c("longbench", "dong", "main") # which folders, in this order, to run
 SKIP <- character(0)   # scripts not to run, written <folder>/<script>
-## run only these, in pipeline order (character(0) = everything): the scripts whose
-## figures or tables change with the 17 Nov fixes
-##   longbench/01, 02 (+ @bambu)  edited 17 Nov; the Bambu results predated the edit
-##   longbench/03  ED4 b drawn like a (grey; Bambu dashed / open, oarfish solid / filled)
-##   longbench/08  Fig. 1 panels and the tables behind ST4 a (read 01-03)
-##   longbench/09  Fig. 1 assembly and the ED4 a-h layout read by dong/11
-##   dong/03       oarfish vs Bambu summary (reads longbench/01, 02 of both quantifiers)
-##   dong/10       ED4 j: F1 to 3 decimals, as e (also re-saves Fig. 2c-g, unchanged)
-##   dong/11       ED4 page (copies Fig. 2 and ED7 panels, nothing is redrawn)
-##   main/01       ED1 and ST2 (trace times in UTC, idle_h, failed attempts)
-##   main/03       ED2 e and ST1 (fraction of bases aligned recomputed)
-##   main/04       Supplementary Tables (ST4 b, ST5 labels and accuracy)
-## Not rerun: dong/08 changed in comments only; dong/06 only renames its
-## source-data entries (ED5_, ED6_pair_); the circos scripts (dong/04, 05, 09)
-## did not change.
-ONLY <- c("longbench/01_sequin_edger.R", "longbench/02_sirv_ercc.R",
-          "longbench/01_sequin_edger.R@bambu", "longbench/02_sirv_ercc.R@bambu",
-          "longbench/03_quantifier_plots.R", "longbench/08_fig1_panels.R",
-          "longbench/09_assemble_figures.R",
-          "dong/03_quantifier_comparison.R",
-          "dong/10_quantifier_panels.R", "dong/11_assemble_figures.R",
-          "main/01_computational_resources.R", "main/03_sequencing_metrics.R",
-          "main/04_supplementary_tables.R")
+ONLY <- character(0)
 STOP_ON_ERROR <- FALSE # FALSE: a failed script only skips the scripts that need it
 # TRUE : stop at the first failure
 
