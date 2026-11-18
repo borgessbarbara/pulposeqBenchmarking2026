@@ -1,7 +1,7 @@
 ## ===========================================================================
 ## 03_quantifier_plots.R - Bambu vs oarfish, and the read-to-transcript
 ##                         ambiguity (RTA) overdispersion, on the SAME pulposeq
-##                         runs (same alignments, annotation and libraries)
+##                         runs (same libraries and transcripts; Bambu on genome alignments, oarfish on its own transcriptome mapping)
 ##                         -> supplementary figure panels + tables
 ##
 ## A  where the quantifier matters (spike-ins)
@@ -182,7 +182,7 @@ qm <- bind_rows(
                      ercc_r2    = ercc_r2,
                      ercc_lod   = log10(ercc_lod70_amol_ul)) %>%
     pivot_longer(-c(quantifier, protocol), names_to = "metric"),
-  ## undivided counts for both, so only the quantifier differs
+  ## undivided counts for both, so the RTA division is not part of the difference
   fc_q %>% filter(level == "transcript", count_mode == "undivided") %>%
     transmute(quantifier, protocol = plat_labels[platform], metric = "seq_f1", value = f1)) %>%
   mutate(quantifier = recode(quantifier, bambu = "Bambu"),
@@ -198,7 +198,7 @@ write_csv(qm, file.path(outroot, "q_metrics_spikeins.csv"))
 ##     detected / in the mix; F1 with precision = detected / (detected + novel
 ##     models on the set after validation). No R2 (ERCC: the dose-response R2).
 ##   sequin DE: isoform-level DE (edgeR, undivided counts for both quantifiers,
-##     so only the quantifier differs) - recall = sensitivity, F1, R2 of observed
+##     so the RTA division is not part of the difference) - recall = sensitivity, F1, R2 of observed
 ##     vs expected log2FC.
 ## Sensitivity = recall; accuracy is not drawn (identification has no true
 ## negatives; for sequin DE it is in q_metrics_by_set.csv).

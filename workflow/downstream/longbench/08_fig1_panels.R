@@ -430,7 +430,7 @@ pC <- ggplot(fc, aes(exp_lfc, y)) +
   border(0.85) + leg_right(0.53)
 
 ## ------------------------------------------ f: quantifier (Bambu vs oarfish) ---
-## the same runs quantified twice (same alignments, annotation and libraries):
+## the same runs quantified twice (same libraries and transcripts; Bambu on genome alignments, oarfish on its own transcriptome mapping):
 ## log2((oarfish + 1) / (Bambu + 1)) of each spike-in transcript's mean reads over
 ## libraries, against its length; transcripts with >= 1 mean read in either
 ## quantifier (03_quantifier_plots.R, per_transcript_quantifiers.csv.gz; the
