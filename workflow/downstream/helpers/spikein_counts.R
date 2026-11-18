@@ -1,7 +1,7 @@
 ## ===========================================================================
 ## spikein_counts.R - spike-in rows of one pulposeq run, from either quantifier,
 ##                    so the spike-in scripts can compare oarfish with Bambu on
-##                    the SAME alignments and annotation
+##                    the same libraries and transcripts (Bambu: genome alignments; oarfish: transcriptome mapping)
 ## Sourced after oarfish_counts.R (needs read_oarfish()).
 ##
 ##   quantifier = "oarfish" : read_oarfish() -> undivided counts, counts divided
