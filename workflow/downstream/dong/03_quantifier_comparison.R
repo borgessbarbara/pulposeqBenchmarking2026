@@ -1,6 +1,6 @@
 ## ===========================================================================
 ## 03_quantifier_comparison.R - oarfish vs Bambu on the SAME pulposeq runs
-##                              (same alignments, annotation and libraries)
+##                              (same libraries and transcripts; Bambu on genome alignments, oarfish on its own transcriptome mapping)
 ##                              -> Supplementary table + figure
 ##
 ## Reads what longbench/01, longbench/02 and dong/02 wrote for each quantifier:
@@ -116,7 +116,7 @@ p_sirv <- ggplot(paired, aes(log2_obs_exp_bambu, log2_obs_exp_oarfish)) +
   facet_wrap(~ protocol, nrow = 1) +
   coord_equal() +
   labs(x = "Bambu: log2(observed / expected)", y = "oarfish: log2(observed / expected)",
-       title = "SIRV abundance, Bambu vs oarfish (same alignments)",
+       title = "SIRV abundance, Bambu vs oarfish (same libraries)",
        subtitle = "Each point is one SIRV (median across libraries); dashed: identity") +
   theme_bw(base_size = 9) + theme(panel.grid = element_blank(), legend.position = "bottom")
 ggsave(file.path(figdir, "supp_quantifier_sirv.pdf"), p_sirv, width = 180, height = 75, units = "mm")

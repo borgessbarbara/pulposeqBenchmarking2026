@@ -235,7 +235,7 @@ id_metrics <- function(id) {
 ##  supp a1 does for LongBench. Rows = metrics, grouped: sequin identification
 ##  (recall = detected / in the mix, F1 with precision after validation) and
 ##  isoform-level DE (sensitivity, precision, F1, fold-change R2; undivided
-##  counts for both quantifiers, so only the quantifier differs; the primary,
+##  counts for both quantifiers, so the RTA division is not part of the difference; the primary,
 ##  divided-count analysis is Fig. 2c). Two dots per row, Bambu light green
 ##  and oarfish blue, values printed right of each dot;
 ##  x-axis spans the data only (rounded down to 0.05).

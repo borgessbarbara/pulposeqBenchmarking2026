@@ -1,7 +1,7 @@
 ## ===========================================================================
 ## 10_quantifier_panels.R - Dong: Bambu vs oarfish, and the read-to-transcript
 ##                          ambiguity (RTA) overdispersion, on the SAME pulposeq
-##                          run (same alignments, annotation and libraries)
+##                          run (same libraries and transcripts; Bambu on genome alignments, oarfish on its own transcriptome mapping)
 ##                          -> Extended Data figure panels + tables
 ## The Dong version of longbench/03_quantifier_plots.R. Dong has
 ## sequins only (no SIRV / ERCC), so the spike-in panels (LongBench a, b) are
@@ -9,7 +9,7 @@
 ##
 ##   a  sequins: mean reads per isoform, Bambu vs oarfish (colour = RTA overdispersion)
 ##   b  sequin isoform DE: observed vs expected log2FC, Bambu | oarfish
-##      (edgeR, undivided counts for both, so only the quantifier differs)
+##      (edgeR, undivided counts for both, so the RTA division is not part of the difference)
 ##   c  human transcripts: mean counts, Bambu vs oarfish (2-D histogram)
 ##   d  detection agreement (Jaccard) by detection threshold (1-100 reads)
 ##   e  sequins: observed log2FC with divided vs undivided oarfish counts
