@@ -50,7 +50,7 @@ in their logic compared with the Bambu-only scripts is listed below.
 - **Quantifier comparison.** Every spike-in script also runs on Bambu's counts of the same runs
   (`Rscript <script> bambu`, or `@bambu` in `run_all.R`; results in `<folder>_bambu/`), and
   `dong/03_quantifier_comparison.R` sets oarfish and Bambu side by side
-  (same alignments, annotation and libraries) for the Supplement.
+  (same libraries and transcripts; Bambu on genome alignments, oarfish on its own transcriptome mapping) for the Supplement.
 - **Spike-in definitions** (identical for both quantifiers and both datasets): detected = >= 3
   reads in >= 2 libraries (ERCC: >= 1 read in >= 2 libraries), counts rounded per library;
   SIRV accuracy = median across libraries of log2(observed / expected), expected = 1/84;
