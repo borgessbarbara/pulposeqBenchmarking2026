@@ -1,6 +1,6 @@
 ## ===========================================================================
 ## 04_supplementary_tables.R - builds the Supplementary Tables workbook from the
-## current results (oarfish-integrated runs). Rerunnable: every table is read
+## current results. Rerunnable: every table is read
 ## from the files the analysis scripts write; nothing is typed in by hand
 ## except titles, descriptions and the SAMtools and MultiQC versions of ST3
 ## (added only while the pipeline's versions file lacks them).
@@ -61,9 +61,9 @@ rs_lab <- function(d) {              # read support: biotypes and support classe
 }
 
 ST <- list()                       # id -> list(title, desc, blocks = list(name = df))
-## the workbook keeps summaries only; per-feature tables are in the benchmarking
-## repository with the other results. Remove an id or a block letter here to
-## bring it back. Tables are renumbered in order after the drop.
+## the workbook keeps summaries only (per-feature tables are not published until
+## the paper is reviewed; descriptions do not point to them). Remove an id or a
+## block letter here to bring it back. Tables are renumbered in order after the drop.
 drop_tables <- c("ST5", "ST6", "ST14", "ST15")      # SIRV / ERCC per isoform, DE results, cis pairs
 drop_blocks <- list(ST7 = c("c", "d"),               # per-sequin results
                     ST8 = c("e", "f", "g", "h"),     # Jaccard, overdispersion, disagreement, Dong per isoform
@@ -275,8 +275,7 @@ add("ST7", "Sequin differential abundance against the known mixture ratios (Long
           "sensitivity (= recall) = true_pos / truly_de; fdr = (false_pos + wrong_sign) / n_called; precision = true_pos / n_called; f1 from precision and sensitivity; accuracy = (true_pos + true_neg) / tested; auc = area under the ROC curve of -log10(p) for truly differential sequins;",
           "slope, intercept (LongBench only) and r2 = linear regression of observed (unshrunk) on expected log2FC; rmse = root mean square of observed - expected; spearman = Spearman correlation of observed and expected; median_abs_err = median |observed - expected|;",
           "n_one_mix_zero = tested sequins with no reads in every library of one mix (unshrunk log2FC near +/-10), left out of slope_no_zero and r2_no_zero; slope_shrunk and r2_shrunk = the same fit on the shrunken log2FC (predFC, prior count 2);",
-          "truly_de_in_mix = truly differential sequins in the whole mix, tested or not, and sensitivity_in_mix = true_pos / truly_de_in_mix. In (b), rmse_shrunk = the rmse of the shrunken log2FC.",
-          "Per-sequin results are in the benchmarking repository."),
+          "truly_de_in_mix = truly differential sequins in the whole mix, tested or not, and sensitivity_in_mix = true_pos / truly_de_in_mix. In (b), rmse_shrunk = the rmse of the shrunken log2FC."),
     `a | LongBench summary` = st7a,
     `b | Dong summary` = st7b,
     `c | LongBench per sequin` = rd(lbsq, "sequin_de_results.csv"),
@@ -304,7 +303,7 @@ add("ST8", "Bambu and oarfish quantification of the same runs (LongBench and Don
           "In (a), recall in sequin DE rows is the sensitivity, and accuracy = (true positives + true negatives) / tested sequins (sequin DE rows only: identification has no true negatives).",
           "(c) LongBench and (d) Dong human transcripts, mean reads over libraries: Spearman correlation among transcripts with a mean of >=1 read with either quantifier (n_any, spearman_any), and, among those with >=10 (n_ge10),",
           "the share within two-fold and the median |log2((oarfish + 1) / (Bambu + 1))| (pct_within_2fold_ge10, median_abs_lr_ge10).",
-          "Extended Data Fig. 4; Fig. 2c-g. Jaccard indices, overdispersion shares, disagreement by overdispersion and Dong sequins per isoform are in the benchmarking repository."),
+          "Extended Data Fig. 4; Fig. 2c-g."),
     `a | LongBench metrics by set` = rd(lq, "q_metrics_by_set.csv"),
     `b | LongBench spike-ins` = q_spk,
     `c | LongBench human agreement` = rd(lq, "human_agreement.csv"),
@@ -358,8 +357,7 @@ add("ST11", "Sharing of novel intron chains between protocols and transcript-end
     `d | Transcript-end differences` = uic_tab(rt(uj, "ST6_transcript_end_differences.tsv")),
     `e | UIC sharing by length` = uic_len)
 add("ST12", "Agreement between protocols on the classification of shared intron chains (LongBench).",
-    paste("UICs reconstructed by >=2 protocols. Unit: UIC entities; concordant when every protocol assigned the same class code, biotype or reference host gene; Wilson 95% intervals.",
-          "Every disagreement, itemized, is in the benchmarking repository."),
+    paste("UICs reconstructed by >=2 protocols. Unit: UIC entities; concordant when every protocol assigned the same class code, biotype or reference host gene; Wilson 95% intervals."),
     `a | Concordance` = uic_tab(rt(uj, "ST5_classification_concordance.tsv")),
     `b | Disagreements` = uic_tab(rt(uj, "ST7_itemised_disagreements.tsv")))
 
@@ -381,13 +379,14 @@ add("ST15", "Novel transcripts and every tested transcript within 1 Mb: cis co-e
     `All pairs within 1 Mb` = rd(dg, "correlation-cis-1Mb/results/cis_pairs_all.csv"))
 
 ## renumber after the drop: sheet names follow the table numbers, and {STn} in a
-## description becomes the new number of STn ("the benchmarking repository" when
-## STn was dropped, as dropped tables are kept there)
+## description becomes the new number of STn. A published table must not refer to
+## a dropped one (dropped tables are not public): that stops the build.
 new_no <- setNames(seq_along(ST), names(ST))
 xref <- function(s) {
   for (k in unique(regmatches(s, gregexpr("\\{ST[0-9]+\\}", s))[[1]])) {
     id <- gsub("[{}]", "", k)
-    s <- gsub(k, if (id %in% names(new_no)) paste("Supplementary Table", new_no[[id]]) else "the benchmarking repository", s, fixed = TRUE)
+    if (!id %in% names(new_no)) stop("a description refers to dropped table ", id, ": reword it")
+    s <- gsub(k, paste("Supplementary Table", new_no[[id]]), s, fixed = TRUE)
   }
   gsub(" {2,}", " ", s)
 }
@@ -404,10 +403,14 @@ addWorksheet(wb, "Descriptions")
 idx <- tibble(Sheet = names(ST), Table = paste("Supplementary Table", seq_along(ST)),
               Title = vapply(ST, `[[`, "", "title"), Description = vapply(ST, `[[`, "", "desc"))
 writeData(wb, "Descriptions", "pulposeq - Supplementary Tables", startRow = 1); addStyle(wb, "Descriptions", st_title, 1, 1)
-writeData(wb, "Descriptions", "One row per table; click a sheet name to open it. Built by 04_supplementary_tables.R from the oarfish-integrated runs. Per-feature results (SIRV and ERCC per isoform, per-sequin DE, quantifier details, itemized intron-chain disagreements, DE results and cis pairs) are in the benchmarking repository.", startRow = 2)
+writeData(wb, "Descriptions", "One row per table; click a sheet name to open it. Built by workflow/04_supplementary_tables.R.", startRow = 2)
 writeData(wb, "Descriptions", idx, startRow = 4, headerStyle = st_hdr)
-for (i in seq_len(nrow(idx))) writeFormula(wb, "Descriptions", startRow = 4 + i, startCol = 1,
-                                           x = makeHyperlinkString(sheet = idx$Sheet[i], row = 1, col = 1, text = idx$Sheet[i]))
+## sheet names stay plain text, styled as links; repair_xlsx() adds native cell
+## hyperlinks to them. (makeHyperlinkString() writes =HYPERLINK("#'ST1'!A1", ...)
+## formulas stored with a leading "=", which Google Sheets cannot parse.)
+addStyle(wb, "Descriptions", createStyle(fontColour = "#0563C1", textDecoration = "underline"),
+         rows = 4 + seq_len(nrow(idx)), cols = 1)
+sheet_links <- setNames(sprintf("'%s'!A1", idx$Sheet), paste0("A", 4 + seq_len(nrow(idx))))   # cell -> target
 setColWidths(wb, "Descriptions", 1:4, c(8, 22, 60, 120)); addStyle(wb, "Descriptions", st_desc, 5:(4 + nrow(idx)), 3:4, gridExpand = TRUE)
 for (i in seq_along(ST)) {
   id <- names(ST)[i]; s <- ST[[i]]
@@ -437,7 +440,9 @@ if (file.exists(out)) message("  overwriting ", basename(out))
 ## openxlsx 4.2.9 declares xl/drawings/drawingN.xml in [Content_Types].xml
 ## and in each sheet's rels without writing the files (strict readers such as
 ## openpyxl refuse the workbook). Drop every reference to a part not in the file.
-repair_xlsx <- function(path) {
+## `links` (cell -> "'Sheet'!A1") become native internal hyperlinks on the first
+## sheet (Descriptions), which Excel and Google Sheets both open.
+repair_xlsx <- function(path, links = NULL) {
   path <- normalizePath(path, winslash = "/", mustWork = TRUE)   # zip::zip works inside root
   tmp <- tempfile("xlsx_"); dir.create(tmp)
   on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
@@ -459,13 +464,24 @@ repair_xlsx <- function(path) {
     n_rel <- n_rel + length(drop)
     writeChar(r, rf, eos = NULL, useBytes = TRUE)
   }
+  if (length(links)) {
+    sf <- file.path(tmp, "xl/worksheets/sheet1.xml"); s <- rd_txt(sf)
+    if (grepl("<hyperlinks>", s, fixed = TRUE)) stop("sheet1 already has hyperlinks")
+    hl <- paste0("<hyperlinks>", paste(sprintf('<hyperlink ref="%s" location="%s" display="%s"/>', names(links),
+                                               gsub("'", "&apos;", links), sub("^'(.*)'!.*$", "\\1", links)),
+                                       collapse = ""), "</hyperlinks>")
+    ## schema order: ... mergeCells, conditionalFormatting, dataValidations, hyperlinks, printOptions, pageMargins ...
+    at <- regexpr("<printOptions|<pageMargins|<pageSetup|</worksheet>", s)
+    s <- paste0(substr(s, 1, at - 1), hl, substr(s, at, nchar(s)))
+    writeChar(s, sf, eos = NULL, useBytes = TRUE)
+  }
   files <- c("[Content_Types].xml", setdiff(parts, "[Content_Types].xml"))
   unlink(path)
   zip::zip(path, files, root = tmp, mode = "mirror")
-  message(sprintf("  workbook repaired: %d content-type and %d sheet-relationship entries for missing parts removed",
-                  length(miss), n_rel))
+  message(sprintf("  workbook repaired: %d content-type and %d sheet-relationship entries for missing parts removed; %d sheet links",
+                  length(miss), n_rel, length(links)))
   invisible(path)
 }
 saveWorkbook(wb, out, overwrite = TRUE)
-repair_xlsx(out)
+repair_xlsx(out, sheet_links)
 message("Done: ", out)
